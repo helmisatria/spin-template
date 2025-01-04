@@ -54,13 +54,13 @@ npx @helmisatria/spin-template
 
 The following placeholders are available in templates:
 
-- `{{APP_NAME}}`: Your application name (lowercase with dashes)
-- `{{USER_NAME}}`: Your username (lowercase with dashes/underscores)
-- `{{USER_DISPLAY_NAME}}`: Your display name
-- `{{EMAIL}}`: Email for SSL certificate
-- `{{SSH_PUBLIC_KEY}}`: Public SSH key
-- `{{HOST_SERVER}}`: Host server address
-- `{{PRODUCTION_DOMAIN}}`: Production domain
+- `coba`: Your application name (lowercase with dashes)
+- `helmisatria`: Your username (lowercase with dashes/underscores)
+- `Helmi Satria`: Your display name
+- `satriahelmi@gmail.com`: Email for SSL certificate
+- `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOG1BXrIkq+VGU/PLbmAu+W/R+Bf+X6WaE2fAQAy8s6l satriahelmi@gmail.com`: Public SSH key
+- `server.natauang.com`: Host server address
+- `natauang.com`: Production domain
 
 ## License
 
