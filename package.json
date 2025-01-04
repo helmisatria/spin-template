@@ -1,10 +1,11 @@
 {
   "name": "@helmisatria/spin-template",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Project template generator with infrastructure setup",
   "type": "module",
   "license": "MIT",
   "repository": {
+    "type": "git",
     "url": "git+https://github.com/helmisatria/spin-template.git"
   },
   "bin": {
