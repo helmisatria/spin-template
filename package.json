@@ -4,6 +4,9 @@
   "description": "Project template generator with infrastructure setup",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/helmisatria/spin-template"
+  },
   "bin": {
     "spin-template": "./src/index.ts"
   },
