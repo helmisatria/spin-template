@@ -5,7 +5,6 @@ import { readdir, cp } from "fs/promises";
 import { join } from "path";
 import { replaceInFile } from "replace-in-file";
 import { execSync } from "child_process";
-import { renameSync } from "fs";
 
 interface UserInputs {
   appName: string;
@@ -177,12 +176,6 @@ async function main() {
 
     // Copy selected template
     await cp(join(process.cwd(), "templates", selectedTemplate), process.cwd(), { recursive: true });
-
-    // rename templates/.infrastructure/conf/ci/gitignore to .gitignore
-    renameSync(
-      join(process.cwd(), "templates", ".infrastructure", "conf", "ci", "gitignore"),
-      join(process.cwd(), ".gitignore")
-    );
 
     // Replace placeholders in files
     await replaceInFile({
