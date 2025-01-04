@@ -1,0 +1,27 @@
+services:
+  app:
+    command: ["bun", "--watch", "app.ts"]
+    platform: linux/amd64
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - .:/app
+    networks:
+      - development
+    env_file:
+      - .env
+    init: true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/up"]
+      start_period: 60s
+      start_interval: 5s
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+networks:
+  development:

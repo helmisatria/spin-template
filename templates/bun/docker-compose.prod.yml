@@ -1,0 +1,46 @@
+services:
+  app:
+    image: ${SPIN_IMAGE_DOCKERFILE} # Change this if you're not using `spin deploy`
+    environment:
+      NODE_ENV: "production"
+      HEALTHCHECK_PATH: "/up"
+    networks:
+      - web-public
+    volumes:
+      - storage_data:/app/data
+    deploy:
+      replicas: 1
+      update_config:
+        failure_action: rollback
+        parallelism: 1
+        delay: 5s
+        order: start-first
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 10s
+        max_attempts: 3
+        window: 120s
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/up"]
+      start_period: 60s
+      start_interval: 5s
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.{{APP_NAME}}.rule=Host(`{{PRODUCTION_DOMAIN}}`)"
+      - "traefik.http.routers.{{APP_NAME}}.entrypoints=websecure"
+      - "traefik.http.routers.{{APP_NAME}}.tls=true"
+      - "traefik.http.routers.{{APP_NAME}}.tls.certresolver=letsencryptresolver"
+      - "traefik.http.services.{{APP_NAME}}.loadbalancer.server.port=8080"
+      - "traefik.http.services.{{APP_NAME}}.loadbalancer.server.scheme=http"
+
+volumes:
+  storage_data:
+
+networks:
+  web-public:
