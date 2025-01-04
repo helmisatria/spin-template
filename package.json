@@ -1,14 +1,14 @@
 {
   "name": "@helmisatria/spin-template",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Project template generator with infrastructure setup",
   "type": "module",
   "license": "MIT",
   "repository": {
-    "url": "https://github.com/helmisatria/spin-template"
+    "url": "git+https://github.com/helmisatria/spin-template.git"
   },
   "bin": {
-    "spin-template": "./src/index.ts"
+    "spin-template": "src/index.ts"
   },
   "files": [
     "src",
@@ -16,8 +16,7 @@
   ],
   "scripts": {
     "dev": "bun --watch src/index.ts",
-    "start": "bun src/index.ts",
-    "publish": "bun publish"
+    "start": "bun src/index.ts"
   },
   "dependencies": {
     "@clack/prompts": "^0.9.0",
