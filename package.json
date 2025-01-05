@@ -1,6 +1,6 @@
 {
   "name": "@helmisatria/spin-template",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Project template generator with infrastructure setup",
   "type": "module",
   "license": "MIT",

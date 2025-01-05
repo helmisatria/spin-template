@@ -6,6 +6,8 @@ import { join } from "path";
 import { replaceInFile } from "replace-in-file";
 import { execSync } from "child_process";
 import { renameSync } from "fs";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 interface UserInputs {
   appName: string;
@@ -19,19 +21,26 @@ interface UserInputs {
 
 function checkGitStatus() {
   try {
-    const status = execSync("git status --porcelain").toString();
+    const status = execSync("git status --porcelain", { stdio: "ignore" }).toString();
     if (status) {
-      return false;
+      return false; // Has uncommitted changes
     }
-    return true;
+    return true; // Clean working directory
   } catch (error) {
     // Git is not initialized or not available
-    return true;
+    return true; // Allow proceeding when Git isn't initialized
   }
 }
 
+function getPackageDir() {
+  const currentFilePath = fileURLToPath(import.meta.url);
+  const currentDir = dirname(currentFilePath);
+  return dirname(currentDir); // Go up one level from src/ to package root
+}
+
 async function getTemplates(): Promise<string[]> {
-  const templatesDir = join(process.cwd(), "templates");
+  const packageDir = getPackageDir();
+  const templatesDir = join(packageDir, "templates");
   const entries = await readdir(templatesDir, { withFileTypes: true });
   return entries.filter((entry) => entry.isDirectory() && entry.name !== ".infrastructure").map((entry) => entry.name);
 }
@@ -170,17 +179,19 @@ async function main() {
     const s = spinner();
     s.start("Generating project files...");
 
+    const packageDir = getPackageDir();
+
     // Copy infrastructure files
-    await cp(join(process.cwd(), "templates", ".infrastructure"), join(process.cwd(), ".infrastructure"), {
+    await cp(join(packageDir, "templates", ".infrastructure"), join(process.cwd(), ".infrastructure"), {
       recursive: true,
     });
 
     // Copy selected template
-    await cp(join(process.cwd(), "templates", selectedTemplate), process.cwd(), { recursive: true });
+    await cp(join(packageDir, "templates", selectedTemplate), process.cwd(), { recursive: true });
 
-    // rename templates/.infrastructure/conf/ci/gitignore to .infrastructure/conf/ci/.gitignore
+    // Update the gitignore rename operation
     renameSync(
-      join(process.cwd(), "templates", ".infrastructure", "conf", "ci", "gitignore"),
+      join(packageDir, "templates", ".infrastructure", "conf", "ci", "gitignore"),
       join(process.cwd(), ".infrastructure", "conf", "ci", ".gitignore")
     );
 
