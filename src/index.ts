@@ -195,13 +195,11 @@ async function main() {
       join(process.cwd(), ".infrastructure", "conf", "ci", ".gitignore")
     );
 
-    // wait for 5 second
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-
     // Replace placeholders in files
     await replaceInFile({
-      files: ["./**/*"],
-      ignore: ["node_modules/**/*"],
+      files: ["**/*"],
+      glob: { dot: true },
+      ignore: ["node_modules/**/*", "templates/**/*"],
       from: [
         /\{\{APP_NAME\}\}/g,
         /\{\{USER_NAME\}\}/g,
