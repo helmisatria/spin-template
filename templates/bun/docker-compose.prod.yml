@@ -32,12 +32,12 @@ services:
       retries: 3
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.coba.rule=Host(`natauang.com`)"
-      - "traefik.http.routers.coba.entrypoints=websecure"
-      - "traefik.http.routers.coba.tls=true"
-      - "traefik.http.routers.coba.tls.certresolver=letsencryptresolver"
-      - "traefik.http.services.coba.loadbalancer.server.port=8080"
-      - "traefik.http.services.coba.loadbalancer.server.scheme=http"
+      - "traefik.http.routers.{{APP_NAME}}.rule=Host(`{{PRODUCTION_DOMAIN}}`)"
+      - "traefik.http.routers.{{APP_NAME}}.entrypoints=websecure"
+      - "traefik.http.routers.{{APP_NAME}}.tls=true"
+      - "traefik.http.routers.{{APP_NAME}}.tls.certresolver=letsencryptresolver"
+      - "traefik.http.services.{{APP_NAME}}.loadbalancer.server.port=8080"
+      - "traefik.http.services.{{APP_NAME}}.loadbalancer.server.scheme=http"
 
 volumes:
   storage_data:

@@ -191,14 +191,15 @@ async function main() {
 
     // Update the gitignore rename operation
     renameSync(
-      join(packageDir, "templates", ".infrastructure", "conf", "ci", "gitignore"),
+      join(process.cwd(), ".infrastructure", "conf", "ci", "gitignore"),
       join(process.cwd(), ".infrastructure", "conf", "ci", ".gitignore")
     );
 
     // Replace placeholders in files
     await replaceInFile({
-      files: ["./**/*"],
-      ignore: ["node_modules/**/*"],
+      files: ["**/*"],
+      glob: { dot: true },
+      ignore: ["node_modules/**/*", "templates/**/*"],
       from: [
         /\{\{APP_NAME\}\}/g,
         /\{\{USER_NAME\}\}/g,
