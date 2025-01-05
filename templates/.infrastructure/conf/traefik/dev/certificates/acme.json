@@ -1,12 +1,12 @@
 {
   "letsencryptresolver": {
     "Account": {
-      "Email": "satriahelmi@gmail.com",
+      "Email": "{{EMAIL}}",
       "Registration": {
         "body": {
           "status": "valid",
           "contact": [
-            "mailto:satriahelmi@gmail.com"
+            "mailto:{{EMAIL}}"
           ]
         },
         "uri": "https://acme-v02.api.letsencrypt.org/acme/acct/2024164947"
