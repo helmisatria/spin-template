@@ -191,7 +191,7 @@ async function main() {
 
     // Update the gitignore rename operation
     renameSync(
-      join(packageDir, "templates", ".infrastructure", "conf", "ci", "gitignore"),
+      join(process.cwd(), ".infrastructure", "conf", "ci", "gitignore"),
       join(process.cwd(), ".infrastructure", "conf", "ci", ".gitignore")
     );
 
